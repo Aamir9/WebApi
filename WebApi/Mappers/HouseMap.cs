@@ -12,7 +12,7 @@ namespace WebApi.Mappers
     {
         public HouseMap()
         {
-            Map(a => a.Name).Name("Name");
+            Map(a => a.Name).Name("House");
         }
     }
 }

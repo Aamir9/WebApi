@@ -22,7 +22,13 @@ namespace WebApi.Controllers
         {
             _context = context;
         }
-        // GET: api/Countries
+       
+
+        /// <summary>
+        /// Get all api request 
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet]
         [Route("api/Countries")]
         public async Task<IEnumerable<Country>> Get()
@@ -76,6 +82,10 @@ namespace WebApi.Controllers
 
 
 
+        /// <summary>
+        /// Get all api request  by Id
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/Country/States/{countryId}")]
         public async Task<IEnumerable<State>> States(int countryId)
@@ -88,7 +98,47 @@ namespace WebApi.Controllers
             return states;
         }
 
+        [HttpGet]
+        [Route("api/Country/Cities/{Id}")]
+        public async Task<IEnumerable<City>> Cities(int Id)
+        {
+           return await _context.city.Where(a => a.StateId == Id).ToListAsync();
+          
+        }
 
+
+        [HttpGet]
+        [Route("api/Country/PostalCodes/{Id}")]
+        public async Task<IEnumerable<PostalCode>> PostalCodes(int Id)
+        {
+            return await _context.PostalCode.Where(a => a.CityId == Id).ToListAsync();
+
+        }
+
+
+        [HttpGet]
+        [Route("api/Country/Streets/{Id}")]
+        public async Task<IEnumerable<Street>> Streets(int Id)
+        {
+            return await _context.street.Where(a => a.PostalCodeId == Id).ToListAsync();
+        }
+
+
+        [HttpGet]
+        [Route("api/Country/Houses/{Id}")]
+        public async Task<IEnumerable<House>> Houses(int id)
+        {
+            return await _context.house.Where(a => a.StreetId == id).ToListAsync();
+
+        }
+
+
+
+        /// <summary>
+        /// Get list of data country state etc according to ... 
+        /// </summary>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/StateCities")]
         public async Task<IEnumerable<City>> StateCities(int stateId)

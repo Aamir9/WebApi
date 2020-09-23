@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WebApi.Entities;
 using WebApi.Mappers;
@@ -13,12 +14,13 @@ namespace WebApi.FileServices
 {
     public class CityService
     {
-        public List<City> ReadCSVFile(string location, int id)
+        public IEnumerable<City> ReadCSVFile(string location, int id)
         {
             try
             {
-                using (var reader = new StreamReader(location, Encoding.Default))
-                using (var csv = new CsvReader(reader, CultureInfo.CurrentCulture))
+                //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US", false);
+                using (var reader = new StreamReader(location))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
 
                     csv.Configuration.RegisterClassMap<CityMap>();

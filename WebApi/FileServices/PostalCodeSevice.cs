@@ -7,17 +7,19 @@ using System.Linq;
 using System.Text;
 using WebApi.Entities;
 using WebApi.Mappers;
+using System.Threading;
 
 namespace WebApi.FileServices
 {
     public class PostalCodeSevice
     {
-        public List<PostalCode> ReadCSVFile(string location , int id)
+        public IEnumerable<PostalCode> ReadCSVFile(string location , int id)
         {
             try
             {
-                using (var reader = new StreamReader(location, Encoding.Default))
-                using (var csv = new CsvReader(reader, CultureInfo.CurrentCulture))
+                //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US", false);
+                using (var reader = new StreamReader(location))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
 
                     csv.Configuration.RegisterClassMap<PostalCodeMap>();

@@ -7,18 +7,20 @@ using System.Linq;
 using System.Text;
 using WebApi.Entities;
 using WebApi.Mappers;
+using System.Threading;
 
 namespace WebApi.FileServices
 {
     public class HouseService
     {
    
-            public List<House> ReadCSVFile(string location, int id)
+            public IEnumerable<House> ReadCSVFile(string location, int id)
             {
                 try
                 {
-                    using (var reader = new StreamReader(location, Encoding.Default))
-                    using (var csv = new CsvReader(reader, CultureInfo.CurrentCulture))
+             
+                using (var reader = new StreamReader(location))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
 
                         csv.Configuration.RegisterClassMap<HouseMap>();

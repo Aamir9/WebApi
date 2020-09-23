@@ -11,7 +11,9 @@ namespace WebApi.Mappers
     {
         public CityMap()
         {
-            Map(a => a.Name).Name("Name");
+            //Map(a => a.Name).Name("City");
+            Map(a =>a.Name).ConvertUsing(row => row.GetField<string>("City"));
+
         }
     }
 

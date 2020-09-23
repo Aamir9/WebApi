@@ -11,7 +11,7 @@ namespace WebApi.Mappers
     {
         public PostalCodeMap()
         {
-            Map(a => a.Name).Name("Name");
+            Map(a => a.Name).Name("Postalcode");
         }
     }
 }
